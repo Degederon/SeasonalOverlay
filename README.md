@@ -10,6 +10,7 @@
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.11%2B-18BCF2.svg?logo=homeassistant&logoColor=white)](https://www.home-assistant.io/)
 [![Version](https://img.shields.io/badge/version-1.1.0-6E56CF.svg)](https://github.com/Degederon/SeasonalOverlay/blob/main/CHANGELOG.md)
+[![Languages](https://img.shields.io/badge/languages-English%20%7C%20Deutsch%20%7C%20Espa%C3%B1ol%20%7C%20Fran%C3%A7ais-2E9E6B.svg)](#languages)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Degederon/SeasonalOverlay/blob/main/LICENSE)
 
 </div>
@@ -17,6 +18,8 @@
 Beautiful design and ease of use. https://github.com/Degederon/SeasonalOverlay
 
 Seasonal Overlay decorates your dashboards for the time of year: a border of snowdrifts and icicles in winter, blinking string lights in December, cobwebs and glowing pumpkins at Halloween, and falling snow, drifting leaves, petals, fireflies or fireworks across the screen. It follows the calendar by itself, so a wall tablet changes with the seasons without you touching it. Every tap still reaches your cards underneath.
+
+**Languages:** English, German (Deutsch), Spanish (Español) and French (Français). Setup, controls and theme names follow your Home Assistant language.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Degederon/SeasonalOverlay/main/docs/images/hero-winter.jpg" alt="A wall tablet dashboard with icicles along the top, a snowdrift along the bottom and snow falling over frosted-glass cards" width="100%">
@@ -36,6 +39,7 @@ Seasonal Overlay decorates your dashboards for the time of year: a border of sno
 - [Only on some dashboards](#only-on-some-dashboards)
 - [Using it outside Home Assistant](#using-it-outside-home-assistant)
 - [Moving from the hand-installed version](#moving-from-the-hand-installed-version)
+- [Languages](#languages)
 - [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 - [License](#license)
@@ -320,6 +324,19 @@ If you added `seasonal-overlay-card.js` yourself before the integration existed:
 3. Delete `seasonal-overlay-card.js` from `config/www`.
 4. If you created helpers such as `input_boolean.seasonal_overlay`, you can delete them; the integration's own controls replace them.
 5. Refresh as in [Part 3](#part-3-refresh-the-page).
+
+## Languages
+
+Seasonal Overlay follows the language set in your Home Assistant profile. Other languages show in English.
+
+| Language | Setup and options | Controls and theme names | Card label |
+|---|---|---|---|
+| English | ✓ | ✓ | ✓ |
+| German (Deutsch) | ✓ | ✓ | ✓ |
+| Spanish (Español) | ✓ | ✓ | ✓ |
+| French (Français) | ✓ | ✓ | ✓ |
+
+To change it, select your name at the bottom of the sidebar and set **Language**.
 
 ## Troubleshooting
 
