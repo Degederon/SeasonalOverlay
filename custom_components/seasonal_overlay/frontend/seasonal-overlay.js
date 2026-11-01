@@ -8,7 +8,7 @@
  * pointer-events: none, so every tap still reaches your cards.
  */
 (() => {
-  const VERSION = "1.0.0";
+  const VERSION = "1.1.0";
   if (window.__seasonalOverlayLoaded) return; // loaded twice (resource + module): run once
   window.__seasonalOverlayLoaded = VERSION;
   const TAU = Math.PI * 2;
@@ -758,6 +758,27 @@
     rain: { label: "Rainy day", tint: "rgba(90,120,150,0.12)", layers: [["rain", 16]], border: "rain" },
   };
 
+  /* Labels for the card's edit-mode chip, in the dashboard's language. */
+  const LABELS = {
+    en: { title: "Seasonal overlay", off: "Off",
+      modes: { both: "border and falling", border: "border only", falling: "falling only" },
+      themes: { winter: "Winter", holiday: "Holiday lights", fall: "Fall", halloween: "Halloween", valentine: "Valentine's Day", spring: "Spring",
+        summer_day: "Summer", summer_night: "Summer night", july4: "Fourth of July", newyear: "New Year's", rain: "Rainy day" } },
+    de: { title: "Seasonal Overlay", off: "Aus",
+      modes: { both: "Rahmen und Fallendes", border: "nur Rahmen", falling: "nur Fallendes" },
+      themes: { winter: "Winter", holiday: "Lichterketten", fall: "Herbst", halloween: "Halloween", valentine: "Valentinstag", spring: "Fr\u00fchling",
+        summer_day: "Sommer", summer_night: "Sommernacht", july4: "4. Juli", newyear: "Silvester und Neujahr", rain: "Regentag" } },
+    es: { title: "Seasonal Overlay", off: "Apagado",
+      modes: { both: "borde y ca\u00edda", border: "solo borde", falling: "solo ca\u00edda" },
+      themes: { winter: "Invierno", holiday: "Luces navide\u00f1as", fall: "Oto\u00f1o", halloween: "Halloween", valentine: "San Valent\u00edn", spring: "Primavera",
+        summer_day: "Verano", summer_night: "Noche de verano", july4: "4 de julio", newyear: "A\u00f1o Nuevo", rain: "D\u00eda lluvioso" } },
+    fr: { title: "Seasonal Overlay", off: "D\u00e9sactiv\u00e9",
+      modes: { both: "bordure et chute", border: "bordure seule", falling: "chute seule" },
+      themes: { winter: "Hiver", holiday: "Guirlandes lumineuses", fall: "Automne", halloween: "Halloween", valentine: "Saint-Valentin", spring: "Printemps",
+        summer_day: "\u00c9t\u00e9", summer_night: "Nuit d'\u00e9t\u00e9", july4: "4 juillet", newyear: "Nouvel An", rain: "Jour de pluie" } },
+  };
+  const labelsFor = (lang) => LABELS[String(lang || "en").slice(0, 2).toLowerCase()] || LABELS.en;
+
   const HOLIDAY_THEMES = new Set(["holiday", "halloween", "valentine", "july4", "newyear"]);
 
   // Checked top to bottom; first match wins. "from"/"to" are MM-DD and may wrap the year.
@@ -1061,8 +1082,8 @@
       if (!this.shadowRoot || !this._ctl) return;
       const show = this._ctl.config.show_badge || this._edit;
       const r = this._ctl.current || this._ctl.resolve();
-      const modeText = { both: "border and falling", border: "border only", falling: "falling only" }[r.mode];
-      const label = THEMES[r.theme] ? `${THEMES[r.theme].label} · ${modeText}` : "Off";
+      const t = labelsFor(this._hass?.locale?.language || this._hass?.language);
+      const label = THEMES[r.theme] ? `${t.themes[r.theme]} \u00b7 ${t.modes[r.mode]}` : t.off;
       this.shadowRoot.innerHTML = show
         ? `<style>
              :host{display:block}
@@ -1070,7 +1091,7 @@
                 background:var(--ha-card-background,var(--card-background-color,#fff));color:var(--primary-text-color);
                 font-size:14px;border:1px solid var(--divider-color,rgba(0,0,0,.12))}
              .d{width:10px;height:10px;border-radius:50%;background:var(--accent-color,#03a9f4)}
-           </style><div class="b"><span class="d"></span>Seasonal overlay: ${label}</div>`
+           </style><div class="b"><span class="d"></span>${t.title}: ${label}</div>`
         : `<style>:host{display:none}</style>`;
     }
   }

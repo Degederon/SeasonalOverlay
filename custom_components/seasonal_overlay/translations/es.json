@@ -1,0 +1,67 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Seasonal Overlay",
+        "description": "Añade decoraciones de temporada y festivas a tus paneles: nieve, hojas que caen, luces navideñas, fuegos artificiales y más. Se carga automáticamente, sigue el calendario y añade controles que puedes cambiar desde cualquier panel o automatización."
+      }
+    },
+    "abort": {
+      "already_configured": "Seasonal Overlay ya está configurado.",
+      "single_instance_allowed": "Seasonal Overlay ya está configurado."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Seasonal Overlay",
+        "description": "Si Seguir el tiempo está activado, la lluvia o la nieve reales sustituyen el tema de temporada. Las fiestas se mantienen.",
+        "data": {
+          "weather_entity": "Tiempo a seguir"
+        }
+      }
+    }
+  },
+  "entity": {
+    "switch": {
+      "follow_weather": {
+        "name": "Seguir el tiempo"
+      }
+    },
+    "select": {
+      "theme": {
+        "name": "Tema",
+        "state": {
+          "auto": "Automático (sigue el calendario)",
+          "winter": "Invierno",
+          "holiday": "Luces navideñas",
+          "newyear": "Año Nuevo",
+          "valentine": "San Valentín",
+          "spring": "Primavera",
+          "summer": "Verano",
+          "july4": "4 de julio",
+          "fall": "Otoño",
+          "halloween": "Halloween",
+          "rain": "Día lluvioso",
+          "off": "Ninguno"
+        }
+      },
+      "mode": {
+        "name": "Modo",
+        "state": {
+          "both": "Borde y caída",
+          "border": "Solo borde",
+          "falling": "Solo caída"
+        }
+      }
+    },
+    "number": {
+      "density": {
+        "name": "Densidad"
+      },
+      "top_inset": {
+        "name": "Espacio para el encabezado"
+      }
+    }
+  }
+}

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+- German, Spanish and French: the setup screens, options, controls and theme names now follow your Home Assistant language.
+- The card's label in edit mode is translated too.
+
 ## 1.0.0
 - First release: seasonal and holiday decorations drawn over your dashboards, as a border, falling effects, or both.
 - 11 themes: Winter, Holiday lights, New Year's, Valentine's Day, Spring, Summer (day and night), Fourth of July, Fall, Halloween and Rainy day.

@@ -1,0 +1,67 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Seasonal Overlay",
+        "description": "Fügt deinen Dashboards jahreszeitliche und festliche Dekorationen hinzu: Schnee, fallende Blätter, Lichterketten, Feuerwerk und mehr. Wird automatisch geladen, folgt dem Kalender und bringt Steuerelemente mit, die du über jedes Dashboard oder jede Automation ändern kannst."
+      }
+    },
+    "abort": {
+      "already_configured": "Seasonal Overlay ist bereits eingerichtet.",
+      "single_instance_allowed": "Seasonal Overlay ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Seasonal Overlay",
+        "description": "Wenn „Dem Wetter folgen“ eingeschaltet ist, ersetzen Regen oder Schnee draußen das Jahreszeiten-Thema. Feiertage bleiben, wie sie sind.",
+        "data": {
+          "weather_entity": "Wetter, dem gefolgt wird"
+        }
+      }
+    }
+  },
+  "entity": {
+    "switch": {
+      "follow_weather": {
+        "name": "Dem Wetter folgen"
+      }
+    },
+    "select": {
+      "theme": {
+        "name": "Thema",
+        "state": {
+          "auto": "Automatisch (folgt dem Kalender)",
+          "winter": "Winter",
+          "holiday": "Lichterketten",
+          "newyear": "Silvester und Neujahr",
+          "valentine": "Valentinstag",
+          "spring": "Frühling",
+          "summer": "Sommer",
+          "july4": "4. Juli",
+          "fall": "Herbst",
+          "halloween": "Halloween",
+          "rain": "Regentag",
+          "off": "Keins"
+        }
+      },
+      "mode": {
+        "name": "Modus",
+        "state": {
+          "both": "Rahmen und Fallendes",
+          "border": "Nur Rahmen",
+          "falling": "Nur Fallendes"
+        }
+      }
+    },
+    "number": {
+      "density": {
+        "name": "Dichte"
+      },
+      "top_inset": {
+        "name": "Platz für die Kopfzeile"
+      }
+    }
+  }
+}

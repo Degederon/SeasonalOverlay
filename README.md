@@ -9,7 +9,7 @@
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.11%2B-18BCF2.svg?logo=homeassistant&logoColor=white)](https://www.home-assistant.io/)
-[![Version](https://img.shields.io/badge/version-1.0.0-6E56CF.svg)](https://github.com/Degederon/SeasonalOverlay/blob/main/CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.1.0-6E56CF.svg)](https://github.com/Degederon/SeasonalOverlay/blob/main/CHANGELOG.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Degederon/SeasonalOverlay/blob/main/LICENSE)
 
 </div>
@@ -55,6 +55,7 @@ Seasonal Overlay decorates your dashboards for the time of year: a border of sno
 | **Leaves the header clear** | Decorations start below the Home Assistant header, adjustable for kiosk setups. |
 | **Off on chosen devices** | Keep it on the wall tablet and off your phone. |
 | **Tablet friendly** | Capped frame rate, pauses when the screen is off, nothing running when switched off, and honours reduced motion. |
+| **Four languages** | English, German, Spanish and French: setup, controls and theme names follow your Home Assistant language. |
 | **Lightweight** | One small script with no dependencies, drawn in code. No images to download. |
 
 ## Take a tour

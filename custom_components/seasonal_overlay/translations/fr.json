@@ -1,0 +1,67 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Seasonal Overlay",
+        "description": "Ajoute des décorations de saison et de fêtes à vos tableaux de bord : neige, feuilles qui tombent, guirlandes lumineuses, feux d'artifice et plus encore. Il se charge automatiquement, suit le calendrier et ajoute des commandes que vous pouvez modifier depuis n'importe quel tableau de bord ou automatisation."
+      }
+    },
+    "abort": {
+      "already_configured": "Seasonal Overlay est déjà configuré.",
+      "single_instance_allowed": "Seasonal Overlay est déjà configuré."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Seasonal Overlay",
+        "description": "Lorsque Suivre la météo est activé, la pluie ou la neige à l'extérieur remplacent le thème de saison. Les fêtes restent inchangées.",
+        "data": {
+          "weather_entity": "Météo à suivre"
+        }
+      }
+    }
+  },
+  "entity": {
+    "switch": {
+      "follow_weather": {
+        "name": "Suivre la météo"
+      }
+    },
+    "select": {
+      "theme": {
+        "name": "Thème",
+        "state": {
+          "auto": "Automatique (suit le calendrier)",
+          "winter": "Hiver",
+          "holiday": "Guirlandes lumineuses",
+          "newyear": "Nouvel An",
+          "valentine": "Saint-Valentin",
+          "spring": "Printemps",
+          "summer": "Été",
+          "july4": "4 juillet",
+          "fall": "Automne",
+          "halloween": "Halloween",
+          "rain": "Jour de pluie",
+          "off": "Aucun"
+        }
+      },
+      "mode": {
+        "name": "Mode",
+        "state": {
+          "both": "Bordure et chute",
+          "border": "Bordure seule",
+          "falling": "Chute seule"
+        }
+      }
+    },
+    "number": {
+      "density": {
+        "name": "Densité"
+      },
+      "top_inset": {
+        "name": "Espace pour l'en-tête"
+      }
+    }
+  }
+}
