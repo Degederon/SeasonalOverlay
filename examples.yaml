@@ -1,0 +1,41 @@
+# Seasonal Overlay card examples. The integration already decorates every dashboard;
+# use the card only to decorate some views (turn switch.seasonal_overlay off first).
+# The card is invisible except while editing, and draws over the view it is on.
+
+# 1. Simplest: follow the calendar automatically
+type: custom:seasonal-overlay-card
+
+---
+# 2. Fixed theme, border only, below the HA header
+type: custom:seasonal-overlay-card
+theme: holiday
+mode: border
+top_inset: 56
+
+---
+# 3. Controlled by the integration's own controls, swaps to rain or snow with the real weather
+type: custom:seasonal-overlay-card
+theme_entity: select.seasonal_overlay_theme
+mode_entity: select.seasonal_overlay_mode
+density_entity: number.seasonal_overlay_density
+weather_entity: weather.home
+weather_override: true        # seasonal themes only; use "always" to override holidays too
+top_inset: 56
+
+---
+# 4. Your own dates (checked before the built-in schedule)
+type: custom:seasonal-overlay-card
+theme: auto
+schedule:
+  - { from: "03-14", to: "03-17", theme: spring }      # St. Patrick's weekend
+  - { from: "11-20", to: "11-28", theme: fall }        # Thanksgiving week
+  - { from: "06-10", to: "06-10", theme: newyear }     # birthday confetti
+density: 6
+
+---
+# 5. Gentle on an older tablet
+type: custom:seasonal-overlay-card
+density: 3
+max_fps: 20
+opacity: 0.85
+tint: false

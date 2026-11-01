@@ -1,0 +1,67 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Seasonal Overlay",
+        "description": "Adds seasonal and holiday decorations to your dashboards: snow, falling leaves, string lights, fireworks and more. It loads automatically, follows the calendar, and adds controls you can change from any dashboard or automation."
+      }
+    },
+    "abort": {
+      "already_configured": "Seasonal Overlay is already set up.",
+      "single_instance_allowed": "Seasonal Overlay is already set up."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Seasonal Overlay",
+        "description": "When Follow the weather is on, rain or snow outside replaces the seasonal theme. Holidays stay as they are.",
+        "data": {
+          "weather_entity": "Weather to follow"
+        }
+      }
+    }
+  },
+  "entity": {
+    "switch": {
+      "follow_weather": {
+        "name": "Follow the weather"
+      }
+    },
+    "select": {
+      "theme": {
+        "name": "Theme",
+        "state": {
+          "auto": "Automatic (follows the calendar)",
+          "winter": "Winter",
+          "holiday": "Holiday lights",
+          "newyear": "New Year's",
+          "valentine": "Valentine's Day",
+          "spring": "Spring",
+          "summer": "Summer",
+          "july4": "Fourth of July",
+          "fall": "Fall",
+          "halloween": "Halloween",
+          "rain": "Rainy day",
+          "off": "None"
+        }
+      },
+      "mode": {
+        "name": "Mode",
+        "state": {
+          "both": "Border and falling",
+          "border": "Border only",
+          "falling": "Falling only"
+        }
+      }
+    },
+    "number": {
+      "density": {
+        "name": "Density"
+      },
+      "top_inset": {
+        "name": "Space for the header"
+      }
+    }
+  }
+}

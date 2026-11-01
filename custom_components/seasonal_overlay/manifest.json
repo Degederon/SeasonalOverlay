@@ -1,0 +1,20 @@
+{
+  "domain": "seasonal_overlay",
+  "name": "Seasonal Overlay",
+  "after_dependencies": [
+    "lovelace"
+  ],
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": [
+    "frontend",
+    "http"
+  ],
+  "documentation": "https://github.com/Degederon/SeasonalOverlay",
+  "integration_type": "service",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/Degederon/SeasonalOverlay/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "1.0.0"
+}
