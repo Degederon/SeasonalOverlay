@@ -9,7 +9,7 @@
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2024.11%2B-18BCF2.svg?logo=homeassistant&logoColor=white)](https://www.home-assistant.io/)
-[![Version](https://img.shields.io/badge/version-1.1.0-6E56CF.svg)](https://github.com/Degederon/SeasonalOverlay/blob/main/CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.0-6E56CF.svg)](https://github.com/Degederon/SeasonalOverlay/blob/main/CHANGELOG.md)
 [![Languages](https://img.shields.io/badge/languages-English%20%7C%20Deutsch%20%7C%20Espa%C3%B1ol%20%7C%20Fran%C3%A7ais-2E9E6B.svg)](#languages)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Degederon/SeasonalOverlay/blob/main/LICENSE)
 
@@ -56,6 +56,7 @@ Seasonal Overlay decorates your dashboards for the time of year: a border of sno
 | **Follows the weather** | Optional: real rain or snow outside replaces the seasonal theme. Holidays stay. |
 | **Day and night** | The summer theme shows the sun and ocean waves by day, the moon, stars and fireflies after sunset. |
 | **Taps go through** | The decorations sit on top but never block a tap. |
+| **Gets out of the way** | Move the mouse into a corner and the decorations there fade away, so you can reach the sidebar menu. A soft clear spot also follows the mouse. Touch screens are unaffected. |
 | **Leaves the header clear** | Decorations start below the Home Assistant header, adjustable for kiosk setups. |
 | **Off on chosen devices** | Keep it on the wall tablet and off your phone. |
 | **Tablet friendly** | Capped frame rate, pauses when the screen is off, nothing running when switched off, and honours reduced motion. |
@@ -294,6 +295,7 @@ More examples, including your own date ranges and the weather, are in [`examples
 | `max_fps` | `30` | Frame cap. 20 is plenty for older tablets. |
 | `z_index` | `3` | Lower it if decorations appear over pop-up dialogs. |
 | `respect_reduced_motion` | `true` | With reduced motion on, show the border only, without movement. |
+| `hover_fade` | `true` | Fade the decorations in a corner while the mouse is near it, plus a clear spot around the mouse. |
 | `theme_entity`, `mode_entity`, `density_entity`, `enabled_entity` | | Entities that control the card, such as the integration's own. |
 | `weather_entity`, `weather_override` | | `weather_override: true` lets rain or snow replace seasonal themes; `"always"` replaces holidays too. |
 | `schedule` | | Your own date ranges, checked before the calendar above. |
@@ -352,7 +354,8 @@ To change it, select your name at the bottom of the sidebar and set **Language**
 | The integration was added but there's no icon | App icons need Home Assistant 2026.3 or later. Refresh the browser after updating, since browsers keep old icons. |
 | Your dashboards are managed in YAML | The integration can't edit your resources, so it loads the overlay on every page instead. It works the same. To list it yourself, add `/seasonal_overlay/seasonal-overlay.js` as a `module` under `lovelace: resources:`. |
 | An older tablet stutters | Lower **Density** to 3, or use **Border only**. |
-| Nothing moves, only the border shows | The device asks for reduced motion (an accessibility setting), so the overlay keeps still. |
+| Nothing moves, only the border shows | The device has animations turned off, so the overlay keeps still on purpose. To turn them on: **Windows 11:** Settings → Accessibility → Visual effects → **Animation effects**. **Windows 10:** Settings → Ease of Access → Display → **Show animations in Windows**. **Mac:** System Settings → Accessibility → Display → turn off **Reduce motion**. Then refresh the page. |
+| Decorations cover the sidebar menu | Move the mouse toward that corner: the decorations there fade away until the mouse leaves. |
 | The pictures or text on the Marketplace page are out of date | Open **Seasonal Overlay** in the Marketplace, open the **⋮** menu and choose **Update information**. |
 
 ## Contributing

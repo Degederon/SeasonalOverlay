@@ -4,7 +4,7 @@ from __future__ import annotations
 
 DOMAIN = "seasonal_overlay"
 NAME = "Seasonal Overlay"
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 MANUFACTURER = "Degederon"
 
 CARD_FILE = "seasonal-overlay.js"

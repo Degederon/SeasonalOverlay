@@ -8,7 +8,7 @@
  * pointer-events: none, so every tap still reaches your cards.
  */
 (() => {
-  const VERSION = "1.1.0";
+  const VERSION = "1.2.0";
   if (window.__seasonalOverlayLoaded) return; // loaded twice (resource + module): run once
   window.__seasonalOverlayLoaded = VERSION;
   const TAU = Math.PI * 2;
@@ -847,6 +847,13 @@
       this._frame = (now) => this.frame(now);
       this.reduced = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false };
       this.respectReduced = true;
+      // Mouse-aware fading, so menus under the decorations stay easy to see.
+      this.hoverFade = true; this.pointer = null; this.cornerFade = [0, 0, 0, 0]; this.holeFade = 0;
+      this._onPointer = (e) => {
+        if (e.pointerType && e.pointerType !== "mouse") return;
+        this.pointer = { x: e.clientX, y: e.clientY - this.topInset, at: performance.now() };
+      };
+      this._onPointerGone = () => { this.pointer = null; };
     }
     active() {
       let best = null;
@@ -859,6 +866,10 @@
         document.body.appendChild(this.canvas);
         window.addEventListener("resize", this._onResize);
         document.addEventListener("visibilitychange", this._onVis);
+        window.addEventListener("pointermove", this._onPointer, { passive: true });
+        window.addEventListener("pointerdown", this._onPointer, { passive: true });
+        document.documentElement.addEventListener("mouseleave", this._onPointerGone);
+        window.addEventListener("blur", this._onPointerGone);
         this.resize();
         this._last = performance.now();
         this._raf = requestAnimationFrame(this._frame);
@@ -871,6 +882,10 @@
         cancelAnimationFrame(this._raf);
         window.removeEventListener("resize", this._onResize);
         document.removeEventListener("visibilitychange", this._onVis);
+        window.removeEventListener("pointermove", this._onPointer);
+        window.removeEventListener("pointerdown", this._onPointer);
+        document.documentElement.removeEventListener("mouseleave", this._onPointerGone);
+        window.removeEventListener("blur", this._onPointerGone);
         this.canvas.remove();
         this.theme = "off";
       } else this.active()?.apply(true);
@@ -880,6 +895,7 @@
       Object.assign(this, {
         mode: o.mode, density: clamp(Number(o.density) || 5, 0, 10), maxFps: clamp(Number(o.maxFps) || 30, 5, 60),
         tint: o.tint !== false, opacity: clamp(o.opacity ?? 1, 0, 1), respectReduced: o.respectReduced !== false,
+        hoverFade: o.hoverFade !== false,
       });
       this.canvas.style.zIndex = String(o.zIndex ?? 3);
       const inset = Math.max(0, Number(o.topInset) || 0);
@@ -923,14 +939,40 @@
       this._raf = requestAnimationFrame(this._frame);
       if (document.hidden) return;
       const reduced = this.motionReduced;
-      const fps = reduced ? 1 : this.maxFps;
+      const fading = this.hoverFade && (this.pointer || this.holeFade > 0 || this.cornerFade.some((f) => f > 0));
+      const fps = reduced && !fading ? 1 : this.maxFps;
       const elapsed = now - this._last;
       if (elapsed < 1000 / fps - 1) return;
       this._last = now;
       const dt = Math.min(elapsed / 1000, 0.1);
-      this.step(reduced ? 0 : dt, reduced);
+      this.step(reduced ? 0 : dt, reduced, dt);
     }
-    step(dt, reduced) {
+    // Fade the decorations in a corner while the mouse is near it, plus a
+    // soft clear spot around the mouse, so menus underneath stay readable.
+    applyHover(c, S, rdt) {
+      if (!this.hoverFade) { this.cornerFade = [0, 0, 0, 0]; this.holeFade = 0; return; }
+      const p = this.pointer, now = performance.now();
+      const zone = 280 * S.u, radius = 360 * S.u, hole = 150 * S.u;
+      const corners = [[0, 0], [S.W, 0], [0, S.H], [S.W, S.H]];
+      const ease = Math.min(1, rdt * 9);
+      const toward = (f, target) => { const v = f + (target - f) * ease; return Math.abs(v - target) < 0.01 ? target : v; };
+      corners.forEach(([cx, cy], i) => {
+        const near = !!p && Math.abs(p.x - cx) < zone && Math.abs(p.y - cy) < zone;
+        this.cornerFade[i] = toward(this.cornerFade[i], near ? 1 : 0);
+      });
+      const moving = !!p && now - p.at < 4000 && p.y > -10;
+      this.holeFade = toward(this.holeFade, moving ? 1 : 0);
+      const clear = (x, y, r, f, inner) => {
+        const g = c.createRadialGradient(x, y, 0, x, y, r);
+        g.addColorStop(0, `rgba(0,0,0,${f})`); g.addColorStop(inner, `rgba(0,0,0,${f})`); g.addColorStop(1, "rgba(0,0,0,0)");
+        c.fillStyle = g; c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill();
+      };
+      c.save(); c.globalCompositeOperation = "destination-out";
+      corners.forEach(([cx, cy], i) => { if (this.cornerFade[i] > 0) clear(cx, cy, radius, this.cornerFade[i], 0.72); });
+      if (this.holeFade > 0 && p) clear(p.x, p.y, hole, this.holeFade * 0.95, 0.5);
+      c.restore();
+    }
+    step(dt, reduced, rdt = dt) {
       const { ctx: c, S } = this;
       S.t += dt;
       if (!THEMES[this.theme]) { // idle: clear once, then do nothing
@@ -966,6 +1008,7 @@
         c.globalAlpha = 1;
       }
       if (this.mode !== "falling" && this.border) { this.border.draw(c, S, this.decor); c.globalAlpha = 1; }
+      this.applyHover(c, S, rdt);
     }
   }
 
@@ -986,6 +1029,7 @@
     z_index: 3,
     top_inset: 0,
     respect_reduced_motion: true,
+    hover_fade: true,
     weather_override: false,
     sun_entity: "sun.sun",
     show_badge: false,
@@ -1040,7 +1084,7 @@
       this.lastKey = key; this.current = r;
       engine.configure({
         theme: r.theme, mode: r.mode, density: r.density, opacity: c.opacity, tint: c.tint,
-        maxFps: c.max_fps, zIndex: c.z_index, topInset: c.top_inset, respectReduced: c.respect_reduced_motion,
+        maxFps: c.max_fps, zIndex: c.z_index, topInset: c.top_inset, respectReduced: c.respect_reduced_motion, hoverFade: c.hover_fade,
       });
       this.onChange(r);
     }
